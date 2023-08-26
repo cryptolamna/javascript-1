@@ -1,152 +1,158 @@
-/* Первый урок
-let a = 1;
-console.log(a);
-a = 'Test'; // ошибка при const
-console.log(a);
+/* if else
+const money = 5;
+const canBuy = money > 50;
+
+if (canBuy) {
+	console.log('Can buy product');
+} else if (money > 5) {
+	console.log('Can buy another product');
+} else {
+	console.log('Not enough money to buy');
+}
+
+console.log('Finish');
 */
 
+/* Упражнение - Размещение депозита
+const deposit = 12000;
+const monthYield = 7;
 
-/* Базовые арифметические операторы
-const width = 10;
-const height = 5;
+const goal = 13500;
 
-const space = width * height;
-const newWidth = width - 4;
-const newWidth2 = width + 4;
+const result = deposit * (1 + (monthYield / 100 / 12)) ** 24;
+if (result > goal) {
+	console.log(`Вася сможет купить дом. Остаток: ${result - goal}$`);
 
-const division = newWidth / newWidth2;
-const volume = 2 ** 32;
-console.log(space, newWidth, newWidth2, division, volume);
-
-// Строки
-const city = 'Москва';
-const street = 'Новослободская';
-
-console.log(city + ', ' + street + ' ' + 5);
+} else {
+	console.log(`Вася не сможет купить дом. Не хватит: ${result - goal}$`);
+}
 */
 
-/* Операторы присваивания
-let age = 18 + 5;
-age += 2; // age = age + 2
-age -= 3;
-age *= 2; // age = age * 2
-age /= 2; // age = age / 2
+/* Операторы равенства
+const secretNumber = '7';
+if (secretNumber === 7) {
+	console.log('Угадал строго');
+}
 
-age++; // age = age + 1
-age--;
+if (Number(secretNumber) === 7) {
+	console.log('Угадал строго с приведением');
+}
 
-console.log(age);
+if (secretNumber == 7) {
+	console.log('Угадал не строго');
+}
 
-// Операторы сравнения
-const vasia = 20
-console.log(age > vasia);
-console.log(age >= vasia);
-console.log(age < vasia);
-console.log(age <= vasia);
-console.log(age == vasia);
+const q = Number(prompt('Введите число'));
+if (q === 7) {
+	console.log('Угадал  строго')
+}
 */
 
-/* Порядок операторов
-const isSuited = 100 - 10 > 90 - 5;
-console.log(isSuited);
+/* Switch
+const role = 'manager';
+if (role === 'manager') {
+	console.log('manager');
+} else if (role === 'admin') {
+	console.log('admin');
+} else if (role === 'ceo') {
+	console.log('ceo');
+} else {
+	console.log('who are you?');
+}
 
-const a = (6 + 10) / 2;
-console.log(a);
+switch (role) {
+	case 'manager': // role === 'manager'
+		console.log('manager');
+		break;
+	case 'admin': // role === 'admin'
+		console.log('admin');
+		break;
+	case 'ceo': // role === 'ceo'
+		console.log('ceo');
+		break;
+	default: //
+		console.log('who are you?');
+}
 
+switch (role) {
+	case 'manager': // role === 'manager'
+	case 'admin': // role === 'admin'
+		console.log('not ceo');
+		break;
+	case 'ceo': // role === 'ceo'
+		console.log('ceo');
+		break;
+	default: //
+		console.log('who are you?');
+}
 
-let b;
-let c;
+const num = 1;
 
-c = b = 100 + 30 + 50;
-console.log(c, b);
+switch (true) {
+	case num > 0:
+		console.log('positive');
+		break;
+	case num < 0:
+		console.log('negative');
+		break;
+	default:
+		console.log('null');
+}
 */
 
-/* Типы данных
-// const age = 18; // числа
-// const surname = 'Иванов'; // строки
-// const isAdmin = true; // булево
-// let data = undefined; // не заданное
-// let dataNullable = null; // пустое значение
-// const admin = Symbol('Admin'); // уникальное неизменное значение
-// const big = BigInt(1000000000000000); // большие числа
-let a = 5;
-let b = 5.6;
+/* Тернарные операторы
+const bmwX3 = 100000;
+const fordFocusPrice = 10000;
+const budget = 20000;
 
-console.log(typeof a);
-a = 'строка';
-console.log(typeof a);
-e = `sdsa`;
-console.log(typeof e);
 
-let isAdmin = a > 10;
-console.log(typeof isAdmin);
+let message;
+if (budget > bmwX3) {
+	message = 'BMW';
+} else {
+	message = 'Bicycle';
+}
 
-let c;
-console.log(typeof c);
-c = 5;
-console.log(typeof c);
+message = budget > bmwX3 
+	? 'BMW' 
+	: budget > fordFocusPrice ? 'FORD' : 'Bicycle';
+// if else if else
 
-let d = null;
-console.log(typeof d);
-console.log(typeof d == null);
+
+const str = 10 > 0 ? 'Greater than 0' : 'Less than 0';
+console.log(str);
+
+const car = budget > bmwX3 ? 'BMW' : 'Bicycle';
+console.log(`Я хочу купить ${car}`);
+console.log(`Я хочу купить ${budget > bmwX3 ? 'BMW' : 'Bicycle'}`);
 */
 
-/* ! Упражнение - Расчёт проекта
-const rate = 80;
-const requiredDays = 11;
-const requiredHours = 40;
+/* Упражнение - Проверка робота
+const input = prompt('Please solve 7 + or - 15');
 
-const maxWorkingHours = (requiredDays - 2) * 5;
+let isRobot;
+if (input === 'I"m not robot') {
+	isRobot = false;
+} else {
+	switch (Number(input)) {
+		case -8:
+		case 22:
+			isRobot = false;
+			break;
+		default:
+			isRobot = true;
+	}
+}
+const msg = isRobot ? 'You are robot' : 'You are not robot';
+console.log(msg);
 
-const possible = maxWorkingHours > requiredHours;
-console.log(possible);
-console.log(rate * requiredHours);
-*/
-
-/* Шаблонные строки
-const projectName = 'Shop Page';
-const price = 2000;
-const author = 'John Doe';
-
-const template = author + ' ordered ' + projectName + ' by price ' + price + '$';
-console.log(template);
-
-const template2 = `${author} ordered ${projectName} by ${price}`
-
-console.log(template2);
-
-const template3 = `Project:\nPrice: ${price}$`;
-console.log(template3);
-
-const template4 = `Project:
-Price: ${price}$
-`;
-
-console.log(template4);
-
-*/
-
-/* Конвертация типов
-const age = '18';
-console.log(Number(age) + 5);
-console.log(age * 3);
-
-const userName = 'John';
-console.log(Number(userName) + 5); // NaN - Not a Number
-console.log(typeof NaN);
-console.log(String(4) + 7);
-console.log(Boolean(1)); // true
-console.log(Boolean('') + 10); // bool('') (0) + 10
-
-const a = 2 + '10';
-console.log(a - 10); // 200
-*/
-
-/* False из других типов
-console.log(Boolean(0));
-console.log(Boolean(''));
-console.log(Boolean(undefined)); // false
-console.log(Boolean(null)); // false
-console.log(Boolean(Number('sx'))); // false == bool(Nan)
-console.log(Boolean(NaN)); // false
+switch (true) { // Correct & compact
+	case input === 'I"m not robot':
+	case Number(input) === 22:
+	case Number(input) === -8:
+		console.log('Success');
+		break;
+	default:
+		console.log('You are robot');
+} 
 */
