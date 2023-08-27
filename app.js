@@ -1,158 +1,69 @@
-/* if else
-const money = 5;
-const canBuy = money > 50;
+/* Логические операторы
+const isAdmin = true;
+const canWrite = true;
 
-if (canBuy) {
-	console.log('Can buy product');
-} else if (money > 5) {
-	console.log('Can buy another product');
-} else {
-	console.log('Not enough money to buy');
-}
+console.log(`System file: ${isAdmin && canWrite}`);
+console.log(`Common file: ${isAdmin || canWrite}`);
+console.log(`Invert admin's permissions: ${!isAdmin}`);
 
-console.log('Finish');
-*/
+const isEdited = true;
+const isSU = true;
 
-/* Упражнение - Размещение депозита
-const deposit = 12000;
-const monthYield = 7;
+console.log(`Can edit: ${isAdmin && canWrite && !isEdited}`);
+console.log(`Can edit: ${isAdmin && canWrite && (!isEdited || isSU)}`);
 
-const goal = 13500;
 
-const result = deposit * (1 + (monthYield / 100 / 12)) ** 24;
-if (result > goal) {
-	console.log(`Вася сможет купить дом. Остаток: ${result - goal}$`);
+let a = 7;
+if (a === -8 || a === 22) {
 
-} else {
-	console.log(`Вася не сможет купить дом. Не хватит: ${result - goal}$`);
 }
 */
 
-/* Операторы равенства
-const secretNumber = '7';
-if (secretNumber === 7) {
-	console.log('Угадал строго');
-}
+/* Операторы с другими типами
+console.log('Вася' || 'Олег'); // Всегда выводит 1 операнд
+console.log(false || 'Олег');
+console.log('Вася' || false);
 
-if (Number(secretNumber) === 7) {
-	console.log('Угадал строго с приведением');
-}
+console.log('Вася' && 'Олег'); // && - всегда выводит 2 операнд
+console.log(false && 'Олег'); // дальше не проверяет
+console.log('Вася' && false);
 
-if (secretNumber == 7) {
-	console.log('Угадал не строго');
-}
+let a;
+const username = a || 'Петя';
+console.log(username);
 
-const q = Number(prompt('Введите число'));
-if (q === 7) {
-	console.log('Угадал  строго')
-}
+const isAdmin = true;
+const filename = isAdmin && 'file.mp4';
+
 */
 
-/* Switch
-const role = 'manager';
-if (role === 'manager') {
-	console.log('manager');
-} else if (role === 'admin') {
-	console.log('admin');
-} else if (role === 'ceo') {
-	console.log('ceo');
-} else {
-	console.log('who are you?');
-}
-
-switch (role) {
-	case 'manager': // role === 'manager'
-		console.log('manager');
-		break;
-	case 'admin': // role === 'admin'
-		console.log('admin');
-		break;
-	case 'ceo': // role === 'ceo'
-		console.log('ceo');
-		break;
-	default: //
-		console.log('who are you?');
-}
-
-switch (role) {
-	case 'manager': // role === 'manager'
-	case 'admin': // role === 'admin'
-		console.log('not ceo');
-		break;
-	case 'ceo': // role === 'ceo'
-		console.log('ceo');
-		break;
-	default: //
-		console.log('who are you?');
-}
-
-const num = 1;
-
-switch (true) {
-	case num > 0:
-		console.log('positive');
-		break;
-	case num < 0:
-		console.log('negative');
-		break;
-	default:
-		console.log('null');
-}
+/* Оператор нулевого слияние
+let username = 'John';
+console.log(username || 'Default'); // если username == '' || 0 сработает 'Default'
+let usernameNull = null;
+console.log(usernameNull ?? 'Default'); // not null and not undefined
 */
 
-/* Тернарные операторы
-const bmwX3 = 100000;
-const fordFocusPrice = 10000;
-const budget = 20000;
 
+/* Упражнение - Проверка прав
+const balance = 1000;
+const bonusBalance = 100;
+const isBanned = false;
+const isExist = false;
+const isSelling = true;
 
-let message;
-if (budget > bmwX3) {
-	message = 'BMW';
-} else {
-	message = 'Bicycle';
-}
+const statusMsg = (balance >= 1000 || bonusBalance >= 100)
+	&& !isBanned
+	&& !isExist
+	&& isSelling
+	? 'Вы можете купить'
+	: 'Вы не можете купить';
 
-message = budget > bmwX3 
-	? 'BMW' 
-	: budget > fordFocusPrice ? 'FORD' : 'Bicycle';
-// if else if else
-
-
-const str = 10 > 0 ? 'Greater than 0' : 'Less than 0';
-console.log(str);
-
-const car = budget > bmwX3 ? 'BMW' : 'Bicycle';
-console.log(`Я хочу купить ${car}`);
-console.log(`Я хочу купить ${budget > bmwX3 ? 'BMW' : 'Bicycle'}`);
-*/
-
-/* Упражнение - Проверка робота
-const input = prompt('Please solve 7 + or - 15');
-
-let isRobot;
-if (input === 'I"m not robot') {
-	isRobot = false;
-} else {
-	switch (Number(input)) {
-		case -8:
-		case 22:
-			isRobot = false;
-			break;
-		default:
-			isRobot = true;
-	}
-}
-const msg = isRobot ? 'You are robot' : 'You are not robot';
-console.log(msg);
-
-switch (true) { // Correct & compact
-	case input === 'I"m not robot':
-	case Number(input) === 22:
-	case Number(input) === -8:
-		console.log('Success');
-		break;
-	default:
-		console.log('You are robot');
-} 
+console.log(`Условия для покупки:
+Баланс > 1000: ${balance >= 1000}
+Бонусный баланс > 100: ${bonusBalance >= 100}
+Бан: ${isBanned}
+Игра не куплена: ${isExist}
+Игра в продаже: ${isSelling}
+${statusMsg}`);
 */
