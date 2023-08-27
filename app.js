@@ -1,69 +1,120 @@
-/* Логические операторы
-const isAdmin = true;
-const canWrite = true;
+/* Введение
+function logName(name, surname) {
+	console.log(`My name is ${name} ${surname}`);
+}
 
-console.log(`System file: ${isAdmin && canWrite}`);
-console.log(`Common file: ${isAdmin || canWrite}`);
-console.log(`Invert admin's permissions: ${!isAdmin}`);
+logName('John', 'Doe');
 
-const isEdited = true;
-const isSU = true;
+function countDepositSum(depositInUsd, month, rate) {
+	const sum = depositInUsd * (1 + rate / 12) ** month;
 
-console.log(`Can edit: ${isAdmin && canWrite && !isEdited}`);
-console.log(`Can edit: ${isAdmin && canWrite && (!isEdited || isSU)}`);
+	return sum;
+}
+
+const example1 = countDepositSum(1000, 24, 0.12);
+console.log(example1);
+const example2 = countDepositSum(100000, 12 * 50, 0.15);
+console.log(example2);
+*/
+
+/* Анонимные ф-ции
+function powerOfTwo(num) {
+	return num * num;
+}
+
+const poft = function (num) {
+	return num * num;
+}
+
+console.log(powerOfTwo(5));
+console.log(poft(6));
+console.log(typeof poft);
+*/
+
+/* Стрелочные ф-ции
+function powerOfTwo(num) {
+	return num * num;
+}
+
+console.log(powerOfTwo(5));
+
+const poft = (num) => num * num;
+console.log(poft(6));
+
+const poft1 = num => {
+	console.log(num);
+	return num * num;
+};
+console.log(poft1(6));
+*/
+
+/* Упражнение - Упрощение функции 
+function toPower(num, power) {
+	const res = num ** power;
+	return res;
+}
+
+const toPowerArrow = (num, power) => num ** power;
+console.log(toPowerArrow(2, 3));
+*/
 
 
-let a = 7;
-if (a === -8 || a === 22) {
+/* Параметры по умолчанию
+function toPower(num, power = 2) {
+	const res = num ** power;
+	return res;
+}
 
+
+console.log(toPower(2, 3));
+console.log(toPower(2));
+*/
+
+/* Условия в функциях
+function canAccessWebsite(age) {
+	// if (age < 18) {
+	// 	return false;
+	// }
+
+	// return true;
+	return age < 18;
+
+}
+
+console.log(canAccessWebsite(18));
+
+const canAccessWebsite2 = age => age < 18 ? 'No' : 'Yes';
+
+
+console.log(canAccessWebsite2(18));
+*/
+
+/* Функции в функциях
+const KG_IN_USD = 7;
+const KM_IN_USD = 5;
+
+function calculateW(present) {
+	return present * KG_IN_USD;
+}
+
+function calculateKm(distance) {
+	return distance * KM_IN_USD;
+}
+
+function getExchagePrice(present1, present2, distance) {
+	const price1 = calculateW(present1);
+	const price2 = calculateW(present2);
+	const distancePrice = calculateKm(distance);
+
+	return price1 + price2 + distancePrice;
 }
 */
 
-/* Операторы с другими типами
-console.log('Вася' || 'Олег'); // Всегда выводит 1 операнд
-console.log(false || 'Олег');
-console.log('Вася' || false);
+/* Кредит на MacBook 
+const PRODUCT_PRICE = 2000;
+const maxLoan = (age, hasJob = false) => age > 24 && hasJob ? 500 : age > 24 ? 100 : 0;
 
-console.log('Вася' && 'Олег'); // && - всегда выводит 2 операнд
-console.log(false && 'Олег'); // дальше не проверяет
-console.log('Вася' && false);
+const canBuy = (age, credit, hasJob = false) => maxLoan(age, hasJob) + credit >= PRODUCT_PRICE;
 
-let a;
-const username = a || 'Петя';
-console.log(username);
-
-const isAdmin = true;
-const filename = isAdmin && 'file.mp4';
-
-*/
-
-/* Оператор нулевого слияние
-let username = 'John';
-console.log(username || 'Default'); // если username == '' || 0 сработает 'Default'
-let usernameNull = null;
-console.log(usernameNull ?? 'Default'); // not null and not undefined
-*/
-
-
-/* Упражнение - Проверка прав
-const balance = 1000;
-const bonusBalance = 100;
-const isBanned = false;
-const isExist = false;
-const isSelling = true;
-
-const statusMsg = (balance >= 1000 || bonusBalance >= 100)
-	&& !isBanned
-	&& !isExist
-	&& isSelling
-	? 'Вы можете купить'
-	: 'Вы не можете купить';
-
-console.log(`Условия для покупки:
-Баланс > 1000: ${balance >= 1000}
-Бонусный баланс > 100: ${bonusBalance >= 100}
-Бан: ${isBanned}
-Игра не куплена: ${isExist}
-Игра в продаже: ${isSelling}
-${statusMsg}`);
+console.log(canBuy(25, 1900));
 */
