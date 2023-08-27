@@ -1,120 +1,173 @@
-/* Введение
-function logName(name, surname) {
-	console.log(`My name is ${name} ${surname}`);
+/* Знакомство с массивами
+const role1 = 'admin';
+const role2 = 'user';
+const role3 = 'superuser';
+
+const roles = ['admin', 'user', 'superuser'];
+const userInfo = ['John', 25];
+console.log(roles);
+console.log(roles[2]);
+console.log(roles.length);
+
+console.log(roles.at(0));
+console.log(roles.at(-1));
+
+const usersAges = [2040 - 2022, 20 - '6'];
+console.log(usersAges);
+
+const usernames = new Array('John', 'Travis', 'Mike');
+console.log(usernames);
+
+function square(el) {
+	return el * el;
 }
-
-logName('John', 'Doe');
-
-function countDepositSum(depositInUsd, month, rate) {
-	const sum = depositInUsd * (1 + rate / 12) ** month;
-
-	return sum;
-}
-
-const example1 = countDepositSum(1000, 24, 0.12);
-console.log(example1);
-const example2 = countDepositSum(100000, 12 * 50, 0.15);
-console.log(example2);
+console.log(square(2));
 */
 
-/* Анонимные ф-ции
-function powerOfTwo(num) {
-	return num * num;
-}
+/* Управление элементами массива
+const users = ['John', 'Travis', 'Mike'];
+users[2] = 'Donald';
+console.log(users);
+users[4] = 'Mikita';
+console.log(users);
 
-const poft = function (num) {
-	return num * num;
-}
+const arrayLength = users.push('Arsen');
+console.log(arrayLength);
+console.log(users);
 
-console.log(powerOfTwo(5));
-console.log(poft(6));
-console.log(typeof poft);
+users.unshift('Pavel')
+console.log(users);
+
+console.log(users.pop());
+
+console.log(users.shift());
+console.log(users);
 */
 
-/* Стрелочные ф-ции
-function powerOfTwo(num) {
-	return num * num;
+/* Поиск элемента
+const roles = ['user', 'admin', 'manager', 'admin'];
+const elIndex = roles.indexOf('admin');
+console.log(elIndex);
+const elIndex1 = roles.indexOf('superuser');
+console.log(elIndex1);
+
+if (roles.indexOf('admin') >= 0) {
+	console.log('Access granted');
 }
 
-console.log(powerOfTwo(5));
-
-const poft = (num) => num * num;
-console.log(poft(6));
-
-const poft1 = num => {
-	console.log(num);
-	return num * num;
-};
-console.log(poft1(6));
+console.log(roles.includes('admin'));
+console.log(roles.includes('superuser'));
 */
 
-/* Упражнение - Упрощение функции 
-function toPower(num, power) {
-	const res = num ** power;
-	return res;
-}
+/* Slice, splice, concat, reverse
+const roles = ['user', 'admin', 'manager', 'superuser'];
+const res = roles.slice(2);
+console.log(roles);
+console.log(res);
 
-const toPowerArrow = (num, power) => num ** power;
-console.log(toPowerArrow(2, 3));
+const res2 = roles.slice(0, 3);
+console.log(res2);
+console.log(roles);
+
+const res3 = roles.slice(-1);
+console.log(res3);
+
+const res4 = roles.slice(1, -1);
+console.log(res4);
+
+console.log(roles);
+// const res5 = roles.splice(2);
+// console.log(res5);
+// console.log(roles);
+
+// const res6 = roles.splice(2, 1);
+// console.log(res6);
+// console.log(roles);
+
+roles.reverse();
+console.log(roles);
+
+const newRoles = ['sysadmin', 'developer'];
+const res9 = roles.concat(newRoles);
+console.log(res9);
 */
 
+/* Из строки в массив и обратно
+const roles = ['user', 'admin', 'manager', 'superuser'];
 
-/* Параметры по умолчанию
-function toPower(num, power = 2) {
-	const res = num ** power;
-	return res;
-}
+const url = 'auth/user/login';
+const res = url.split('/');
+
+console.log(res);
 
 
-console.log(toPower(2, 3));
-console.log(toPower(2));
+console.log(roles.join('_'));
 */
 
-/* Условия в функциях
-function canAccessWebsite(age) {
-	// if (age < 18) {
-	// 	return false;
-	// }
+/* Упражнение - Обновление списка задач & Принцип DRY
 
-	// return true;
-	return age < 18;
+const tasks = ['Task #1'];
 
+const addTask = taskName => tasks.push(taskName);
+const removeTask = taskName => {
+	const index = tasks.indexOf(taskName);
+	if (index === -1) {
+		return;
+	}
+	return tasks.splice(index, 1);
+}
+const prioritizeTask = taskName => {
+	const result = removeTask(taskName);
+	if (!result) {
+		return;
+	}
+	tasks.unshift(taskName);
 }
 
-console.log(canAccessWebsite(18));
-
-const canAccessWebsite2 = age => age < 18 ? 'No' : 'Yes';
-
-
-console.log(canAccessWebsite2(18));
+addTask('Task #2');
+console.log(tasks);
+removeTask('Task #1');
+console.log(tasks);
+addTask('Task #3');
+prioritizeTask('Task #3');
+console.log(tasks);
 */
 
-/* Функции в функциях
-const KG_IN_USD = 7;
-const KM_IN_USD = 5;
+/* Деструктуризация
+const userData = ['John', 18, 'Warsaw'];
 
-function calculateW(present) {
-	return present * KG_IN_USD;
-}
+// const username = userData[0];
+// const age = userData[1];
+// const city = userData[2];
 
-function calculateKm(distance) {
-	return distance * KM_IN_USD;
-}
+const [username, _, city] = userData;
 
-function getExchagePrice(present1, present2, distance) {
-	const price1 = calculateW(present1);
-	const price2 = calculateW(present2);
-	const distancePrice = calculateKm(distance);
-
-	return price1 + price2 + distancePrice;
-}
+console.log(username, city);
 */
 
-/* Кредит на MacBook 
-const PRODUCT_PRICE = 2000;
-const maxLoan = (age, hasJob = false) => age > 24 && hasJob ? 500 : age > 24 ? 100 : 0;
-
-const canBuy = (age, credit, hasJob = false) => maxLoan(age, hasJob) + credit >= PRODUCT_PRICE;
-
-console.log(canBuy(25, 1900));
+/* Rest оператор
+const data = [1, 2, 3, 4, 5, 6];
+const [one, two, ...others] = data;
+console.log(one, two, others);
 */
+
+/* Упражнение - Функция разбора URL
+*/
+const url = 'https://purpleschool.ru/course/javascript';
+
+// const protocol = url.split('://').at(0);
+// const other = url.split(`${protocol}://`)[1];
+
+// const [domain, ...path] = other.split('/');
+
+// console.log(protocol, other, domain, path.join('/'));
+function getUrlParts(url) {
+	const [protocol, _, host, ...path] = url.split('/');
+	console.log(protocol, host, path);
+	console.log(`Протокол: ${protocol.split(':')[0]}`)
+	console.log(`Доменное имя: ${host}`)
+	console.log(`Путь: /${path.join('/')}`)
+
+}
+
+getUrlParts(url);
