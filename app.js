@@ -1,95 +1,198 @@
-/* Базовые методы
-const username = 'John Doe';
-console.log(username.charAt(1));
-console.log(username.length);
+/* Знакомство с объектами & Обращение
+const userArray = ['John', 'Doe', 24];
+const user = {
+	name: 'John',
+	surname: 'Doe',
+	skills: [0, 1],
+	age: 24,
+	eduBasic: 'School #10',
+	eduPro: 'MFTI',
+};
 
-console.log(username.lastIndexOf('o'));
+console.log(user);
+console.log(user.name);
+console.log(user.skills);
+console.log(typeof user);
+console.log(user['skills']);
+const level = 'Pro';
+console.log(user['edu' + level]);
 
-console.log(username.includes('Doe'));
+// const res = prompt('Enter property');
+// console.log(user[res]);
+user['city'] = 'Moscow';
+console.log(user);
 
-console.log(username.slice(5, 8));
+user['age'] = 30;
+
+console.log(user);
 */
 
-/* Упражнение - выделение имени
-const username = 'Вася aka Terminator Пупкин';
-const data = username.split(' ');
+/* Упражнение - сортировка пользователей
+const users = [
+	{ name: 'John', age: 18 },
+	{ name: 'Travis', age: 40 },
+	{ name: 'Mike', age: 25 },
+]
 
-console.log(data.at(0), data.at(-1));
+users.sort((a, b) => a.age - b.age);
+console.log(users);
 */
 
-/* Преобразование строки
-const str = 'John Doe';
-console.log(str.includes('n'));
-console.log(str.startsWith('J'));
-console.log(str.endsWith('e'));
-console.log(new String('').includes(''));
-console.log(str.toUpperCase());
-console.log(str.toLowerCase());
+/* Упражнение - преобразование объектов
+const users = [
+	{ name: 'Вася', surname: 'Пупкин', age: 30, skills: ['Разработка', 'Dev0ps'] },
+	{ name: 'Катя', surname: 'Белова', age: 18, skills: ['Дизайн'] },
+]
 
-console.log(str.replace('o', 'a'));
-console.log(str.replaceAll('o', 'q'));
-console.log(str.replace(/o/g, 'q'));
+const newUsers = users
+	.map(user => ({
+		fullName: `${user.name} ${user.surname}`,
+		skillNum: user.skills.length
+	}));
 
-const str2 = '  John Doe   \n';
-console.log(str2.trim());
+console.log(newUsers);
 */
 
-/* Упражнение - проверка номера
-const num1 = '89103235356';
-const num2 = '+79103235356';
-const num3 = '+7(910)3235356';
-const num4 = '+7(910) 323-53-56';
-const num5 = ' +7(910) 323-53-56 ';
-const num1Error = '89103235';
-const num2Error = '+7d910d323-53-56';
-const num3Error = '9+7103235356';
-const num4Error = '89103g35356';
-
-function isPhoneNumber(num) {
-	let clearNum = num.trim().replace(/[-+() ]/g, '');
-	if (!clearNum.startsWith('79') && !clearNum.startsWith('89')) {
-		return false;
+/* Методы объектов
+const user = {
+	name: 'John',
+	surname: 'Doe',
+	age: 24,
+	getFullName: function () {
+		return this.name + ' ' + this.surname;
 	}
-	for (let symbol of clearNum) {
-		if (isNaN(Number(symbol))) {
+};
+
+console.log(user.getFullName());
+
+const arr = [1, 2];
+arr.sort();
+*/
+
+/* Упражнение - кошелёк
+
+const wallet = {
+	balance: 0,
+	operations: [],
+	pushOperation: function (reason, sum) {
+		this.balance += sum;
+		this.operations.push({ reason, sum });
+	},
+	increase: function (reason, sum) {
+		this.pushOperation(reason, sum);
+		return true;
+	},
+	increase: function (reason, sum) {
+		if (this.balance + sum < 0) {
 			return false;
 		}
-	}
-	return clearNum.length === 11;
+		this.pushOperation(reason, sum);
+		return true;
+	},
+	operationsCount: () => this.operations.length
+}
+*/
+
+/* Итерирование по объекту
+const cities = {
+	msk: { temp: 25, lt: 200 },
+	spb: { temp: 20, lt: 100 }
 }
 
-console.log(isPhoneNumber(num1));
-console.log(isPhoneNumber(num2));
-console.log(isPhoneNumber(num3));
-console.log(isPhoneNumber(num4));
-console.log(isPhoneNumber(num5));
+let sumTemp = 0;
+let citiesCount = Object.keys(cities).length;
+for (const c in cities) {
+	sumTemp += cities[c].temp;
+}
+avgTemp = sumTemp / citiesCount;
+console.log(avgTemp);
 
 
-console.log(isPhoneNumber(num1Error));
-console.log(isPhoneNumber(num2Error));
-console.log(isPhoneNumber(num3Error));
-console.log(isPhoneNumber(num4Error));
+for (const key of Object.keys(cities)) {
+	sumTemp += cities[key].temp;
+	citiesCount++;
+}
 */
 
-/* Строки и массивы
-const userFullName = 'John Doe ..';
-const [firstName, familyName, lastName] = userFullName.split(' ');
-console.log(firstName);
+/* Деструктуризация и rest
+let user = {
+	name: 'John',
+	age: 30,
+	city: 'Moscow'
+}
 
-const arr = ['You', 'know', 'JS'];
-console.log(arr.join(' '));
+const { age, ...userWithoutAge } = user;
+console.log(age, userWithoutAge);
+
+const additionalData = {
+	skills: ['Engineering', 'Design'],
+	creditCard: '2345-1231-1231-1232',
+}
+
+user = { ...user, ...additionalData }
+
+console.log(user);
 */
 
-/* Дополнение строк
-const film = 'Star wars';
-console.log(film.padStart(12, '*'));
-console.log(film.padEnd(12, '*'));
-console.log(film.repeat(10));
+/* Optional chaining
+
+const cities = {
+	msk: {
+		temp: {
+			celcius: 25,
+		}
+	},
+	spb: {
+
+	}
+};
+
+if (cities.spb && cities.spb.temp) {
+	console.log(cities.spb.temp.celcius);
+}
+
+console.log(cities.spb?.temp?.celcius);
 */
 
-/* Упражнение - маскировка карты
-const cardNumber = '1111222233334444';
-const lastNumbers = cardNumber.slice(-4);
+/* Упражнение - склад
+const warehouse = {
+	goods: [],
+	findGoodById: function (id) {
+		return this.goods.find(val => val.id == id)
+	},
+	addGood: function (good) {
+		!this.findGoodById(good.id) ? this.goods.push(good) : null;
+	},
+	getWeightKg: function () { return this.goods.reduce((acc, value) => acc += value.weight?.kg ?? 0, 0) },
+};
 
-console.log(lastNumbers.padStart(16, '*'));
+/* Товары
+const car = {
+	id: 1,
+	weight: {
+		kg: 1000
+	},
+	brand: 'Ford'
+}
+
+const chair = {
+	id: 2,
+	weight: {
+		kg: 2
+	}
+}
+
+const paper = {
+	id: 3,
+	color: 'red'
+}
+warehouse.addGood(car);
+warehouse.addGood(car);
+warehouse.addGood(car);
+warehouse.addGood(car);
+warehouse.addGood(car);
+warehouse.addGood(chair);
+warehouse.addGood(paper);
+console.log(warehouse.findGoodById(1));
+console.log(warehouse.getWeightKg());
 */
