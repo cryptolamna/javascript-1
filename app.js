@@ -1,161 +1,95 @@
-/* forEach
-const score = [5, 10, 0, 15];
+/* Базовые методы
+const username = 'John Doe';
+console.log(username.charAt(1));
+console.log(username.length);
 
-for (const [i, el] of score.entries()) {
-	console.log(`Round ${i + 1}: ${el}`);
+console.log(username.lastIndexOf('o'));
+
+console.log(username.includes('Doe'));
+
+console.log(username.slice(5, 8));
+*/
+
+/* Упражнение - выделение имени
+const username = 'Вася aka Terminator Пупкин';
+const data = username.split(' ');
+
+console.log(data.at(0), data.at(-1));
+*/
+
+/* Преобразование строки
+const str = 'John Doe';
+console.log(str.includes('n'));
+console.log(str.startsWith('J'));
+console.log(str.endsWith('e'));
+console.log(new String('').includes(''));
+console.log(str.toUpperCase());
+console.log(str.toLowerCase());
+
+console.log(str.replace('o', 'a'));
+console.log(str.replaceAll('o', 'q'));
+console.log(str.replace(/o/g, 'q'));
+
+const str2 = '  John Doe   \n';
+console.log(str2.trim());
+*/
+
+/* Упражнение - проверка номера
+const num1 = '89103235356';
+const num2 = '+79103235356';
+const num3 = '+7(910)3235356';
+const num4 = '+7(910) 323-53-56';
+const num5 = ' +7(910) 323-53-56 ';
+const num1Error = '89103235';
+const num2Error = '+7d910d323-53-56';
+const num3Error = '9+7103235356';
+const num4Error = '89103g35356';
+
+function isPhoneNumber(num) {
+	let clearNum = num.trim().replace(/[-+() ]/g, '');
+	if (!clearNum.startsWith('79') && !clearNum.startsWith('89')) {
+		return false;
+	}
+	for (let symbol of clearNum) {
+		if (isNaN(Number(symbol))) {
+			return false;
+		}
+	}
+	return clearNum.length === 11;
 }
 
-score.forEach((el, i) => {
-	console.log(`Раунд: ${i + 1}: ${el}`);
-});
+console.log(isPhoneNumber(num1));
+console.log(isPhoneNumber(num2));
+console.log(isPhoneNumber(num3));
+console.log(isPhoneNumber(num4));
+console.log(isPhoneNumber(num5));
+
+
+console.log(isPhoneNumber(num1Error));
+console.log(isPhoneNumber(num2Error));
+console.log(isPhoneNumber(num3Error));
+console.log(isPhoneNumber(num4Error));
 */
 
-/* map 
-const transactionsInUSD = [10, -7, 50, -10, 100];
+/* Строки и массивы
+const userFullName = 'John Doe ..';
+const [firstName, familyName, lastName] = userFullName.split(' ');
+console.log(firstName);
 
-const transactionsInRUB = [];
-for (const transaction of transactionsInUSD) {
-	transactionsInRUB.push(transaction * 60);
-}
-
-const transactionsInRUB2 = transactionsInUSD
-	.map(tx => {
-		console.log(tx);
-		return tx * 60;
-	});
-
-console.log(transactionsInUSD);
-console.log(transactionsInRUB2);
+const arr = ['You', 'know', 'JS'];
+console.log(arr.join(' '));
 */
 
-/* filter
-
-const operations = [100, -20, 7, -20, 50];
-// const positiveOperations = [];
-// for (const operation of operations) {
-// 	if (operation > 0) {
-// 		positiveOperations.push(operation);
-// 	}
-// }
-
-// console.log(positiveOperations);
-
-const positiveOperations = operations
-	.filter(operation => operation > 0);
-
-console.log(positiveOperations);
-
-const positiveRUBOperations = operations
-	.filter(operation => operation > 0)
-	.map(operation => operation * 60);
-
-console.log(positiveRUBOperations);
+/* Дополнение строк
+const film = 'Star wars';
+console.log(film.padStart(12, '*'));
+console.log(film.padEnd(12, '*'));
+console.log(film.repeat(10));
 */
 
-/* Упражнение - вывод изменений цен
-const prices = [[100, 200], [120, 100], [200, 350]];
-const deltaPrices = prices
-	.map(changes => changes[1] - changes[0])
-	.filter(change => change > 0);
+/* Упражнение - маскировка карты
+const cardNumber = '1111222233334444';
+const lastNumbers = cardNumber.slice(-4);
 
-console.log(deltaPrices);
+console.log(lastNumbers.padStart(16, '*'));
 */
-
-/* reduce
-const operations = [100, -20, 7, -30, 50];
-
-let balance = 0;
-for (const operation of operations) {
-	balance += operation;
-}
-
-console.log(balance);
-
-
-const finalBalance = operations.reduce((acc, operation) => acc + operation, 0);
-console.log(finalBalance);
-
-const minElement = operations.reduce((acc, operation) => operation > acc ? acc : operation);
-console.log(minElement);
-*/
-
-/* Упражнение - среднее значение
-const arr = [1, 4, 4, 10];
-
-const avg = arr => arr.reduce((avg, value, idx) => (avg * idx + value) / (idx + 1));
-
-console.log(avg(arr));
-*/
-
-/* find и findIndex
-const arr = [2, 4, 4, 10];
-
-// let elGT5;
-// for (const el of arr) {
-// 	if (el > 5) {
-// 		elGT5 = el;
-// 		break;
-// 	}
-// }
-// console.log(elGT5);
-
-const elGT5 = arr.find(el => el > 0);
-const elGT5Index = arr.findIndex(el => el > 5);
-
-console.log(elGT5, elGT5Index);
-*/
-
-/* Упражнение - реализация some
-
-const arr = [2, 4, 4, 10, 20];
-
-function some(arr, targetEl) {
-	const res = arr.find(el => el === targetEl);
-	return res !== undefined;
-	// for (const el of arr) {
-	// 	if (el === targetEl) {
-	// 		return true;
-	// 	}
-	// }
-	// return false;
-}
-
-
-console.log(some(arr, 4));
-
-console.log(arr.some(el => el === 0));
-*/
-
-/* flat и flatMap
-const prices = [[2, 4], [3, 4], [10, [20, 50]]];
-
-const res = prices.flat(10);
-const res2 = prices.flatMap(el => el.concat([1])); // equal .map(..).flat(..)
-
-console.log(res);
-*/
-
-/* sort
-const users = ['John', 'Travis', 'Mike'];
-console.log(users);
-users.sort();
-console.log(users);
-
-const operations = [100, -300, -100, 50, 480];
-console.log(operations);
-operations.sort((a, b) => a - b);
-console.log(operations);
-*/
-
-/* Быстрое создание массивов
-*/
-const arr = [1, 2, 3, 4];
-console.log(new Array(1, 2, 3, 4, 5));
-
-const arr2 = new Array(5);
-console.log(arr2);
-arr2.fill(2, 3, 5);
-console.log(arr2);
-
-const arr3 = Array.from({ length: 5 }, (_, i) => i + 1);
-console.log(arr3);
