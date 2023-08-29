@@ -1,50 +1,162 @@
 'use strict';
-/* Пример работы call stack
 
-const sum = 1;
-console.log('start');
-console.log(sum);
 
-function add5(n) {
-	n = n + 5;
-	if (n > 1000) {
-		return n;
+/* Пример scope chain
+const successMessage = 'Успех';
+
+const user = {
+	name: 'JOHN',
+	roles: []
+};
+
+function addRole(user, role) {
+	if (role === 'admin') {
+		const message = 'Ошибка';
+		console.log(message);
+		return user;
 	}
-	console.log(n);
-	return add5(n);
+	user.roles.push(role);
+	console.log(successMessage);
+
+	function logRoles() {
+		console.log(user.roles);
+	}
+
+	logRoles();
+
+	return user;
 }
 
-add5(sum);
-console.log('ended');
+console.log(addRole(user, 'dev'));
 */
 
-/*
-let firstName = 'Anton';
-const firstName2 = firstName;
-firstName = 'Pavel';
-console.log(firstName, firstName2);
+/* Всплытие
+addUser();
 
-const user1 = {
-	name: 'Pavel'
-};
+console.log(b);
 
-const user2 = user1;
-user2.name = 'New';
-console.log(user1, user2);
+const a = 3;
+var b = 2;
+console.log(b);
+function addUser() {
+	console.log('User added');
+
+}
+
+addUser();
+
+arr1();
+var arr1 = () => {
+	console.log('arr1');
+}
+
+arr1();
 */
+
+/* this
+console.log(window === this);
+
+function addNum(num1, num2) {
+	console.log(undefined === this); // this === window in no strict
+	return num1 + num2;
+}
+
+const addNum2 = (num1, num2) => {
+	console.log(this === window);
+	return num1 + num2;
+}
+
 const user = {
-	name: 'Anton',
-	id: 1,
-	roles: ['Admin']
+	name: 'John',
+	surname: 'Doe',
+	getFullName: function () {
+		console.log(this);
+		return this.name + ' ' + this.surname;
+	}
 };
 
-// const newUser = Object.assign({}, user);
-// user.name = 'NewUser';
+addNum(1, 2);
+addNum2();
 
-// console.log(user, newUser);
+user.getFullName();
+
+const user2 = {
+	name: 'J',
+	surname: 'D'
+};
+
+user2.getFullName = user.getFullName;
+console.log(user2.getFullName());
+
+const getFullName = user2.getFullName;
+console.log(getFullName());
+*/
+
+/* Контекст в методах
+const user = {
+	firstname: 'John',
+	surname: 'Doe',
+	age: 20,
+	getUserInfo() {
+		console.log(this === user);
+		console.log(`${this.firstname} ${this.surname}`);
+
+		const canDrink = () => {
+			console.log(this === undefined);
+			if (this.age >= 18) {
+				console.log('Can drin');
+			} else {
+				console.log('Can"t drink');
+			}
+		}
+		canDrink();
+	},
+	getUserInfoArrow: () => {
+		console.log(this === window && this !== user);
+		console.log(`${this.firstname} ${this.surname}`);
+	}
+}
+user.getUserInfo();
+user.getUserInfoArrow();
+*/
+
+/* Arguments
+function sumNum(num1, num2) {
+	console.log(this === undefined);
+	console.log(arguments);
+	return Array.from(arguments).reduce((acc, value) => acc + value, 0);
+}
+
+const sumNumArr = (num1, num2) => {
+	console.log(this === window);
+	console.log(arguments); // is not defined
+	return Array.from(arguments).reduce((acc, value) => acc + value, 0); // error
+}
 
 
-const newUser2 = { ...user };
-newUser2.name = 'NewUser';
-newUser2.roles.push('User');
-console.log(user, newUser2);
+console.log(sumNumArr(1, 4, 3, 7, 5, 3, 2));
+*/
+
+/* Упражнение - объект в объекте
+*/
+const company = {
+	name: "ООО Агро",
+	employees: [
+		{ name: "Света", getName() { return this.name } },
+	],
+	ceo: { name: "Вася", getName() { return this.name } },
+	getCompanyName() {
+		return this.name;
+	},
+	getCEOName() {
+		return this.ceo.getName();
+	},
+	getEmployeesName() {
+		return this.employees.map(employee => employee.getName());
+	}
+};
+
+console.log(company.getCompanyName());
+console.log(company.getCEOName());
+console.log(company.getEmployeesName());
+
